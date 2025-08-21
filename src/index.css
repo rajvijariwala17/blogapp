@@ -1,0 +1,13 @@
+/* Import Tailwind's base styles, components, and utilities */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Reset: This removes the default browser margin and padding,
+  fixing the "upper space" issue reliably.
+*/
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif; /* Or your preferred font */
+}
