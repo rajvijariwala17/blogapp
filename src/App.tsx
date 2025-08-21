@@ -30,13 +30,10 @@ function App() {
     setPosts((prevPosts) => [newPost, ...prevPosts]);
   };
 
-  // --- ADD THIS DELETE FUNCTION ---
-  // This function filters the posts array, keeping every post
-  // except the one that matches the id to be deleted.
   const deletePost = (idToDelete: string) => {
     setPosts(prevPosts => prevPosts.filter(post => post.id !== idToDelete));
   };
-  // ---------------------------------
+
 
   return (
     <Router>
