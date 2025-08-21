@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import BlogListPage from './pages/BlogListPage';
 import CreatePostPage from './pages/CreatePostPage';
+import EditPostPage from './pages/EditPostPage'; // Import the new Edit page
 import type { BlogPost } from './components/BlogPostCard';
 
 function App() {
@@ -23,15 +24,18 @@ function App() {
   ]);
 
   const addPost = (post: Omit<BlogPost, 'id'>) => {
-    const newPost: BlogPost = {
-      ...post,
-      id: new Date().getTime().toString(),
-    };
-    setPosts((prevPosts) => [newPost, ...prevPosts]);
+    const newPost: BlogPost = { ...post, id: new Date().getTime().toString() };
+    setPosts(prevPosts => [newPost, ...prevPosts]);
   };
 
   const deletePost = (idToDelete: string) => {
     setPosts(prevPosts => prevPosts.filter(post => post.id !== idToDelete));
+  };
+
+ const updatePost = (updatedPost: BlogPost) => {
+    setPosts(prevPosts => 
+      prevPosts.map(post => (post.id === updatedPost.id ? updatedPost : post))
+    );
   };
 
 
@@ -43,12 +47,16 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route 
             path="/blog" 
-            // --- PASS THE deletePost FUNCTION AS A PROP ---
             element={<BlogListPage posts={posts} onDeletePost={deletePost} />} 
           />
           <Route 
             path="/create-post" 
             element={<CreatePostPage onAddPost={addPost} />} 
+          />
+          
+          <Route 
+            path="/edit-post/:id" 
+            element={<EditPostPage posts={posts} onUpdatePost={updatePost} />} 
           />
         </Routes>
       </main>
